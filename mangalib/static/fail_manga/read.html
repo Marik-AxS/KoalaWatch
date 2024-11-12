@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Название Манги - Глава N, Том M</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .manga-page {
+            max-width: 80%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+        .comments-section {
+            max-width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+<header class="text-center my-4">
+    <h1>Название Манги</h1>
+    <h3>Том M - Глава N</h3>
+</header>
+
+<main>
+    <div id="manga-page-container" class="manga-page">
+        <img id="manga-page" src="path_to_manga_page_image.jpg" alt="Manga Page" onclick="navigatePage(event)">
+    </div>
+
+    <div id="comments-section" class="comments-section">
+        <h4>Комментарии к странице</h4>
+        <!-- Комментарии к текущей странице будут загружаться сюда -->
+        <ul id="comments-list">
+            <li>Комментарий от пользователя</li>
+        </ul>
+    </div>
+</main>
+
+<script>
+    let currentPage = 1;
+
+    function loadPage(page) {
+        document.getElementById('manga-page').src = `path_to_images/page${page}.jpg`;
+        loadComments(page);
+    }
+
+    function navigatePage(event) {
+        const pageWidth = event.currentTarget.offsetWidth;
+        const clickX = event.clientX - event.currentTarget.getBoundingClientRect().left;
+
+        if (clickX > pageWidth / 2) {
+            currentPage++;
+        } else {
+            currentPage--;
+        }
+        loadPage(currentPage);
+    }
+
+    function loadComments(page) {
+        const commentsList = document.getElementById('comments-list');
+        commentsList.innerHTML = `<li>Загружаем комментарии для страницы ${page}</li>`;
+        // Здесь добавьте код для загрузки комментариев с сервера для страницы `page`
+    }
+
+    loadPage(currentPage);
+</script>
+
+</body>
+</html>
